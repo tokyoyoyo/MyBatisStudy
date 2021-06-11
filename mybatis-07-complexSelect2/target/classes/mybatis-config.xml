@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+
+
+<!-- configuration核心配置文件-->
+<configuration>
+
+
+
+    <!--        引入外部配置文件,也可以在property标签里写属性，优先使用外部配置文件-->
+    <properties resource="db.properties">
+        <property name="username" value="root"/>
+        <property name="password" value="123456"/>
+    </properties>
+
+    <settings>
+        <!-- 设置日志工厂-->
+        <setting name="logImpl" value="STDOUT_LOGGING"/>
+    </settings>
+
+        <!-- 可以给实体类起别名-->
+<!--    <typeAliases>-->
+<!--        <typeAlias type="com.jie.pojo.User" alias="User"/>-->
+<!--    </typeAliases>-->
+
+<!--            给整个包起别名，别名默认是首字母小写，要改可以用注解-->
+    <typeAliases>
+        <package name="com.jie.pojo"/>
+    </typeAliases>
+
+    <environments default="development">
+        <environment id="development">
+            <transactionManager type="JDBC"/>
+            <dataSource type="POOLED">
+                <property name="driver" value="${driver}"/>
+                <property name="url" value="${url}"/>
+                <property name="username" value="${username}"/>
+                <property name="password" value="${password}"/>
+            </dataSource>
+        </environment>
+    </environments>
+
+    <!--    每个Mapper.xml都要在Mybatis核心配置文件中注册-->
+    <mappers>
+        <mapper resource="com/jie/dao/StudentMapper.xml"/>
+        <mapper class="com.jie.dao.TeacherMapper"/>
+    </mappers>
+</configuration>
